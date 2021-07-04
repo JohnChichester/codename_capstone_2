@@ -5,9 +5,9 @@ class ReportsController < ApplicationController
   end
 
   def create
-    user = Report.new(
-      user_id: current_user.id
-      date: params[Time.now], #gonna need date.day
+    report = Report.new(
+      user_id: current_user.id,
+      Date: Time.now, #gonna need date.day
       good_day_bad_day: params[:good_day_bad_day],
       safety: params[:safety],
       sustain: params[:sustain],
@@ -21,7 +21,10 @@ class ReportsController < ApplicationController
       cut: params[:cut],
       version: params[:version],
     )
-    report.save
-    render json: report.as_json
+    if report.save
+      render json: { message: "Report created successfully" }, status: :created
+    else
+      render json: { errors: report.errors.full_messages }, status: :bad_request
+    end
   end
 end
