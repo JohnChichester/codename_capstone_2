@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   get "/users" => "users#index"
   post "/users" => "users#create"
   get "/users/:id" => "users#show"
-  #patch "/users/:id" => "users#update"
-  #delete "users/:id" => "users#destroy"
+  patch "/users/:id" => "users#update"
+  delete "users/:id" => "users#destroy"
 
   post "/sessions" => "sessions#create"
 
   post "/reports" => "users#create"
   get "/reports" => "users#index"
-  #get "/reports" => "users#show"
+  get "/reports" => "users#show"
 end
