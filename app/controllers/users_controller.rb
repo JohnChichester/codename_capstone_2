@@ -8,8 +8,8 @@ class UsersController < ApplicationController
     user = User.new(
       first_name: params[:first_name],
       last_name: params[:last_name],
-      username: params["#{:first_name[0]} + #{:last_name}"],
-      password_digest: params[:password],
+      username: params[:username],
+      password: params[:password],
       department: params[:department],
       active: true,
       admin: false,
@@ -30,11 +30,11 @@ class UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     user.first_name = params[:first_name] || user.last_name
     user.last_name = params[:last_name] || user.last_name
-    user.username = params["#{:first_name[0]} + #{:last_name}"] || user.username
-    user.password_digest = "password" || user.password_digest
+    user.username = params[:username] || user.username
+    user.password = params[:password] || user.password
     user.department = params[:department] || user.department
-    user.active = params[:active] || true
-    user.admin = params[:admin] || false
+    user.active = params[:active] || user.active
+    user.admin = params[:admin] || user.admin
     user.save
     render json: user.as_json
   end
