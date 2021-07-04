@@ -1,0 +1,2 @@
+class JobTagsController < ApplicationController
+end
