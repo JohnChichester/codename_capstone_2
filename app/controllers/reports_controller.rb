@@ -7,8 +7,14 @@ class ReportsController < ApplicationController
       report = Report
     else
       reports = Report.where(user_id: current_user.id)
-      render json: report.as_json
+      render json: reports
+      report = Report
     end
+  end
+
+  def show
+    report = current_user.reports.find_by(id: params[:id])
+    render json: report
   end
 
   def create

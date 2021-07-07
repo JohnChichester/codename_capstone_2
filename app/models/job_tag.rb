@@ -1,3 +1,3 @@
 class JobTag < ApplicationRecord
-  belongs_to :orders
+  belongs_to :reports
 end
