@@ -1,7 +1,14 @@
 class ReportsController < ApplicationController
   def index
-    reports = Report.all
-    render json: reports.as_json
+    page = ""
+    if current_user.admin == true
+      reports = Report.all
+      render json: reports.as_json
+      report = Report
+    else
+      reports = Report.where(user_id: current_user.id)
+      render json: report.as_json
+    end
   end
 
   def create
@@ -27,4 +34,17 @@ class ReportsController < ApplicationController
       render json: { errors: report.errors.full_messages }, status: :bad_request
     end
   end
+
+  # def patch
+  #   product = Product.find_by(id: params[:id])
+  #   product.name = params[:title] || product.name
+  #   product.price = params[:price] || product.price
+  #   product.stock = params[:stock] || product.stock
+  #   #product.image_url = params[:image_url] || product.image_url
+  #   product.description = params[:description] || product.description
+  #   if products.save
+  #     render json: products
+  #   else
+  #     render json: { errors: product.errors.full_messages }, status: 422
+  #   end
 end

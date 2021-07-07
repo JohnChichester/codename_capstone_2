@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find_by(id: params[:id])
-    if user.active == false
+    if user.active == false && current_user.admin ==true
       user.destroy
       render json: { message: "User has been removed" }
     else

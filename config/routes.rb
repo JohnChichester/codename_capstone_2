@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   post "/reports" => "reports#create"
 
   get "/reports" => "reports#index"
-  get "/reports" => "reports#show"
+  get "/reports/:id" => "reports#show"
 end
