@@ -13,8 +13,13 @@ class ReportsController < ApplicationController
   end
 
   def show
-    report = current_user.reports.find_by(id: params[:id])
-    render json: report
+    if current_user.admin == false
+      report = current_user.reports.find_by(id: params[:id])
+      render json: report
+    elsif current_user.admin == true
+      report = Report.all.find_by(id: params[:id])
+      render json: report
+    end
   end
 
   def create

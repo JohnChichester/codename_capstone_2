@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
   get "/reports" => "reports#index"
   get "/reports/:id" => "reports#show"
+
+  get "/reports" => "reports#index"
 end
