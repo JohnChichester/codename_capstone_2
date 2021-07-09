@@ -11,14 +11,14 @@ class QuestionsController < ApplicationController
       question_text: params[:question_text],
     )
     if user.save
-      render json: { message: "User created successfully" }, status: :created
+      render json: { message: "Questiom created successfully" }, status: :created
     else
-      render json: { errors: user.errors.full_messages }, status: :bad_request
+      render json: { errors: question.errors.full_messages }, status: :bad_request
     end
   end
 
   def show
-    report = current_user.reports.where(id: params[:id])
-    render json: report
+    survey = Question.all.where(version: params[:version])
+    render json: survey
   end
 end
