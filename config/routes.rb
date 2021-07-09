@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get "/reports" => "reports#index"
 
-  get "/questions/" => "questions#show"
+  get "/questions" => "questions#index"
+  get "/questions/:id" => "questions#show"
   post "/questions/" => "questions#create"
 end

@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   def index
-    users = Question.all
-    render json: users.as_json
+    questions = Question.all.where(version: 1)
+    render json: questions.as_json
   end
 
   def create
@@ -11,14 +11,14 @@ class QuestionsController < ApplicationController
       question_text: params[:question_text],
     )
     if user.save
-      render json: { message: "Questiom created successfully" }, status: :created
+      render json: { message: "Question created successfully" }, status: :created
     else
       render json: { errors: question.errors.full_messages }, status: :bad_request
     end
   end
 
   def show
-    survey = Question.all.where(version: params[:version])
-    render json: survey
+    questions = Question.all.where(version: params[:version])
+    render json: questions
   end
 end
