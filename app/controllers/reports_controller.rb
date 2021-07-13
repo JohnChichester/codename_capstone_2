@@ -1,25 +1,20 @@
 class ReportsController < ApplicationController
   def index
-    page = ""
     if current_user.admin == true
+      p "admin"
       reports = Report.all
       render json: reports.as_json
       report = Report
     else
+      p "not admin"
       reports = Report.where(user_id: current_user.id)
-      render json: reports
-      report = Report
+      render json: reports.as_json, include: "reports.job_tags"
     end
   end
 
   def show
-    if current_user.admin == false
-      report = current_user.reports.find_by(id: params[:id])
-      render json: report
-    elsif current_user.admin == true
-      report = Report.all.find_by(id: params[:id])
-      render json: report
-    end
+    report = current_user.reports.find_by(id: params[:id])
+    render json: report.as_json
   end
 
   def create
